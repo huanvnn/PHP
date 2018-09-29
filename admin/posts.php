@@ -19,7 +19,7 @@
                             <small>Author</small>
                         </h1>
                     </div>
-
+                <!-- them action -->
                     <?php
                         if (isset($_GET['source'])) {
                             $suorce = $_GET['source'];
@@ -29,8 +29,9 @@
                                 include"./includes/add_post.php";   
                                 break;
                             
-                            case '314':
-                                echo "N 314";
+                            case 'edit_post':
+                                echo "<h2>EDIT POST </h2>";
+                                include"./includes/edit_post.php";  
                                 break;
                             
                             case '324':

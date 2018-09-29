@@ -32,7 +32,9 @@
                 <td><?php echo $rows['post_content']; ?></td>
                 <td><?php echo $rows['post_comment_count']; ?></td>
                 <td><?php echo $rows['post_status']; ?></td>
+                <td><a href="posts.php?source=edit_post&p_id=<?php echo $rows['post_id'];?>">Edit</a></td>
                 <td><a href="posts.php?delete=<?php echo $rows['post_id'];?>">Delete</a></td>
+                
               
             </tr>
 
