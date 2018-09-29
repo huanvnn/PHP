@@ -6,7 +6,7 @@
     $edit_post_query = mysqli_query($connection, $query);
 
     $result= mysqli_fetch_assoc($edit_post_query);
-
+//edit
   if (isset($_POST['submit_post'])) {
     $post_category_id=$_POST['post_category_id'];
     $post_title = $_POST['title'];
@@ -21,14 +21,24 @@
     $post_content=$_POST['content'];
 
     move_uploaded_file($post_image_tmp, "../images/$post_image");
+    //fix empty image
+       if (empty($post_image)) {
+       $query = "SELECT * FROM posts WHERE post_id = $id";
+       $image = mysqli_query($connection, $query);
+       while ($rows=mysqli_fetch_assoc($image)) {
+        $post_image=$rows['post_image'];
+         }
+       }
+    
 
-    $query = "UPDATE posts SET ";
-    $query.="post_category_id='$post_category_id', post_title='$post_title', post_author='$post_author', post_date='$post_date', post_image='$post_image', post_tag='$post_tag', post_content = '$post_content' ";
-    $query.="WHERE post_id = $id ";
-    $query_update_post = mysqli_query($connection, $query);
-    if (!$query_update_post) {
-      die('Query Failed'.mysqli_error($connection));
-    }
+      $query = "UPDATE posts SET ";
+      $query.="post_category_id='$post_category_id', post_title='$post_title', post_author='$post_author', post_date='$post_date', post_image='$post_image', post_tag='$post_tag', post_content = '$post_content' ";
+      $query.="WHERE post_id = $id ";
+      $query_update_post = mysqli_query($connection, $query);
+      if (!$query_update_post) {
+        die('Query Failed'.mysqli_error($connection));
+      }
+    
   }
 ?>
 <form action="" method="POST" enctype="multipart/form-data">
