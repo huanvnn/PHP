@@ -40,7 +40,7 @@
        $post_author = $_POST['author'];
        $post_date = date('d-m-y');
        $post_tag = $_POST['tag'];
-       $post_content = $_POST['content'];
+       $post_content = mysqli_real_escape_string($connection, $_POST['content']);
        $post_image =$_FILES['image']['name'];
        $post_image_tmp =$_FILES['image']['tmp_name'];
        $post_comment_count = 1;//default

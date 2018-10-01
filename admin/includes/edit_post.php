@@ -18,7 +18,7 @@
     print_r($_FILES);
     echo "</pre>"; 
     $post_tag= $_POST['tag'];
-    $post_content=$_POST['content'];
+    $post_content=mysqli_real_escape_string($connection, $_POST['content']);
 
     move_uploaded_file($post_image_tmp, "../images/$post_image");
     //fix empty image

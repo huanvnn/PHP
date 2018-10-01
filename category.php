@@ -19,7 +19,10 @@
                     <small>Secondary Text</small>
                 </h1>
                 <?php
-                    $query = "SELECT * FROM posts";
+                if (isset($_GET['cate_id'])) {
+                  $category_id_get= $_GET['cate_id'];
+                }
+                    $query = "SELECT * FROM posts WHERE post_category_id = $category_id_get";
                     $select_all_post = mysqli_query($connection, $query);
 
                     while ($rows = mysqli_fetch_assoc($select_all_post)) {

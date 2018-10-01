@@ -25,33 +25,20 @@
                         <div class="col-lg-6">
                             <ul class="list-unstyled">
                                 <?php 
-                                    $query = "SELECT * FROM categories LIMIT 4 ";
+                                    $query = "SELECT * FROM categories ";
                                     $all_category_from_categorie_table = mysqli_query($connection, $query);
 
                                     while($rows = mysqli_fetch_assoc($all_category_from_categorie_table)){
                                         $cate_title = $rows['cate_title'];
+                                        $cate_id = $rows['cate_id'];
                                         
-                                        echo "<li> <a href='#'> $cate_title </a></li>";
+                                        echo "<li> <a href='category.php?cate_id=$cate_id'> $cate_title </a></li>";
                                     }
                                 ?>
                             </ul>
                         </div>
                         <!-- /.col-lg-6 -->
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                   <?php 
-                                    $query = "SELECT * FROM categories LIMIT 5, 4 ";
-                                    $all_category_from_categorie_table = mysqli_query($connection, $query);
-
-                                    while($rows = mysqli_fetch_assoc($all_category_from_categorie_table)){
-                                        $cate_title = $rows['cate_title'];
-                                        
-                                        echo "<li> <a href='#'> $cate_title </a></li>";
-                                    }
-                                ?>     
-                            </ul>
-                        </div>
-                        <!-- /.col-lg-6 -->
+                       
                     </div>
                     <!-- /.row -->
                 </div>
