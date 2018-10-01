@@ -19,8 +19,9 @@
 
                 while($rows = mysqli_fetch_assoc($all_category_from_categorie_table)){
                     $cate_title = $rows['cate_title'];
+                    $cate_id = $rows['cate_id'];
                     
-                    echo "<li> <a href='#'> $cate_title </a></li>";
+                    echo "<li> <a href='category.php?cate_id=$cate_id'> $cate_title </a></li>";
                 }
             ?> 
                 <li class="nav-item">

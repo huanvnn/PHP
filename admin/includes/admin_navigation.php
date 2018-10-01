@@ -64,7 +64,7 @@
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comment</a>
+                        <a href="comments.php"><i class="fa fa-fw fa-file"></i> Comment</a>
                     </li>
                     <li>
                         <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i>  Profile</a>
