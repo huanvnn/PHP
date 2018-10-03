@@ -63,5 +63,7 @@
             header("Location:./posts.php");
         }
     }
+
+   
     //REmenber call global $connection avieable in method.
 ?>
