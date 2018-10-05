@@ -18,6 +18,7 @@
     print_r($_FILES);
     echo "</pre>"; 
     $post_tag= $_POST['tag'];
+    $post_status = $_POST['post_status'];
     $post_content=mysqli_real_escape_string($connection, $_POST['content']);
 
     move_uploaded_file($post_image_tmp, "../images/$post_image");
@@ -32,7 +33,7 @@
     
 
       $query = "UPDATE posts SET ";
-      $query.="post_category_id='$post_category_id', post_title='$post_title', post_author='$post_author', post_date='$post_date', post_image='$post_image', post_tag='$post_tag', post_content = '$post_content' ";
+      $query.="post_category_id='$post_category_id', post_title='$post_title', post_author='$post_author', post_date='$post_date', post_image='$post_image', post_tag='$post_tag', post_content = '$post_content',post_status = '$post_status' ";
       $query.="WHERE post_id = $id ";
       $query_update_post = mysqli_query($connection, $query);
       if (!$query_update_post) {
@@ -49,19 +50,37 @@
 
   <div class="form-group">
     <label for="categoryInput">Category</label>
-    <select name="post_category_id" id="categoryInput" >
+      <select name="post_category_id" id="categoryInput" >
 
-        <?php 
-            $query = "SELECT * FROM categories";
-            $query_category_edit = mysqli_query($connection, $query);
-        while ($rows = mysqli_fetch_assoc($query_category_edit)) {
-            $cate_id= $rows['cate_id'];
-            $cate_title = $rows['cate_title'];
-          echo  "<option value='$cate_id'> $cate_title </option>";
-        }
-        ?>
-    
-    </select>
+          <?php 
+              $query = "SELECT * FROM categories";
+              $query_category_edit = mysqli_query($connection, $query);
+          while ($rows = mysqli_fetch_assoc($query_category_edit)) {
+              $cate_id= $rows['cate_id'];
+              $cate_title = $rows['cate_title'];
+            echo  "<option value='$cate_id'> $cate_title </option>";
+          }
+          ?>
+      
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="statusInput">Status</label>
+        <select name="post_status" id="statusInput" >
+
+            <?php 
+              
+                $status= $result['post_status'];
+                if ($status == 'draft') {
+                  echo  "<option value='Published'> Published </option>";
+                }{
+                   echo  "<option value='draft'> Draft </option>";
+                }
+                   
+            ?>
+        
+        </select>
     </div>
 
   <div class="form-group">
