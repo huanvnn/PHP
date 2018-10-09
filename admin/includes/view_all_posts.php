@@ -1,6 +1,6 @@
 <?php 
     if (isset($_POST['submit'])) {
-        echo $post_value_select = $_POST['select_option'];
+        $post_value_select = $_POST['select_option'];
          $id=$_POST['bulkId'];
         print_r($id);
         foreach ($id as $key => $value) {
@@ -29,6 +29,26 @@
                     //     die("Query Fail".mysqli_error($connection));
                     // }
                     break;
+                case 'clone':
+                    $query = "SELECT * FROM posts WHERE post_id='$value'";
+                    $excute= mysqli_query($connection, $query);
+                    while ($rows=mysqli_fetch_assoc($excute)) {
+                        $post_cate_id = $rows['post_category_id'];
+                        $post_title  = $rows['post_title'];
+
+                        $post_author =$rows['post_author'];
+                        $post_date = date('d-m-y');
+                        $post_image =$rows['post_image'];
+                        $post_tag = $rows['post_tag'];
+                        $post_content = mysqli_real_escape_string($connection, $rows['post_content']);
+                        $post_comment_count=0;
+                        }
+        
+                        $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_tag, post_content, post_comment_count) ";
+                        $query.= "VALUES ('$post_cate_id', '$post_title', '$post_author', '$post_date', '$post_image', '$post_tag', '$post_content', '$post_comment_count') ";
+                        mysqli_query($connection, $query);
+                     
+                    break;
                 
                 
                 default:
@@ -51,6 +71,7 @@
                 <option value="draft">Draft</option>
                 <option value="published">Publish</option>
                 <option value="delete">Delete</option>
+                <option value="clone">Clone</option>
             </select>
 
             <button class="btn btn-success" type="submit" name="submit" >Apply</button>
@@ -73,7 +94,7 @@
         </thead>
         <tbody>
         <?php 
-        $query= "SELECT * FROM posts";
+        $query= "SELECT * FROM posts ORDER BY post_id DESC";
         $all_pots_query = mysqli_query($connection, $query);
 
         while ($rows = mysqli_fetch_assoc($all_pots_query)) {
@@ -84,8 +105,8 @@
             $post_date= $rows['post_date'];
             $post_image= $rows['post_image'];
             $post_tag=$rows['post_tag'];
-            $post_content = $rows['post_content'];
-            $post_comment_count=$rows['post)comment_count'];
+            $post_content =$rows['post_content'];
+            $post_comment_count=$rows['post_comment_count'];
             $post_status = $rows['post_status'];
 
             echo   "<tr>";
@@ -110,7 +131,7 @@
             echo   "<td> $post_date</td>";
             echo   "<td><img class='img-responsive' src='../images/$post_image' ></td>";
             echo   "<td>$post_tag</td>";
-            echo   "<td>$post_content</td>";
+            echo   "<td>$post_content </td>";
             echo   "<td>$post_comment_count</td>";
             echo   "<td>$post_status</td>";
             echo    "<td><a href='posts.php?source=edit_post&p_id=$post_id'>Edit</a></td>";
