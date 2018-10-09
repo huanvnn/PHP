@@ -13,9 +13,16 @@
 //edit
 if (isset($_POST['edit_user'])) {
     $user_name = $_POST['username'];
+    $salt= '$6$rounds=5000$usesomesillystringforsalt$';
     $user_password = $_POST['password'];
+    $user_password = crypt($user_password, $salt);
     $user_email = $_POST['email'];
     $user_role = $_POST['role'];
+}else{
+    $user_name = $username;
+    $user_password = $passwrod;
+    $user_email =  $email;
+    $user_role = $role;
 }
   $query = "UPDATE users SET user_name = '$user_name', user_password = '$user_password', user_email= '$user_email', user_role = '$user_role' WHERE user_id = $id ";
   $excute = mysqli_query($connection, $query);

@@ -4,7 +4,8 @@
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        
+        $salt= '$6$rounds=5000$usesomesillystringforsalt$';
+        $password = crypt($password, $salt);
     }
     $query = "SELECT * FROM users WHERE user_name ='$username'";
     $username_query = mysqli_query($connection, $query);

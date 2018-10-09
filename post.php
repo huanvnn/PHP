@@ -21,6 +21,7 @@
                 <?php
                     if (isset($_GET['p_id'])) {
                         $post_id= $_GET['p_id'];
+                        $post_author=$_GET['p_author'];
                     }
                     $query = "SELECT * FROM posts WHERE post_id=$post_id";
                     $select_all_post = mysqli_query($connection, $query);
