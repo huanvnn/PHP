@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">CMS Font</a>
+                <a class="navbar-brand" href="index.php?pages=1">CMS Font</a>
             </div>
 
 

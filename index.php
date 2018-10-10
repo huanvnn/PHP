@@ -1,27 +1,39 @@
 <?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
-
-
-
-    <!-- Navigation -->
-<?php include "includes/navigation.php";?>
-
-    <!-- Page Content -->
+<?php include "includes/header.php"; ?>   
+<?php include "includes/navigation.php";?><!-- Navigation -->
+   <!-- Page Content -->
     <div class="container">
-
-        <div class="row">
-
-            <!-- Blog Entries Column -->
+     <div class="row">
+       <!-- Blog Entries Column -->
             <div class="col-md-8">
-
-                <h1 class="page-header">
+             <h1 class="page-header">
                     Page Heading
                     <small>Secondary Text</small>
                 </h1>
-               
+               <!-- pagination-->
+                <?php 
+                        $query = "SELECT * FROM posts WHERE post_status = 'published'";
+                        $query_all_post = mysqli_query($connection, $query);
 
+                        $num_row = mysqli_num_rows($query_all_post);
+                        $pages = ceil($num_row/3);
+                        if (isset($_GET['pages'])) {
+                            $pager=$_GET['pages'];
+                            $post_in_page = 3;
+
+                            if ($pager == "" ||$pager<1|| $pager>$pages) {
+                                $pager=1;
+                            }else{
+                                $page = $pager* 3 - $post_in_page;
+                            }
+                        }else {
+                            $page=0;
+                            $post_in_page=3;
+                        }
+                       
+                ?>
                 <?php
-                    $query = "SELECT * FROM posts WHERE post_status='Published' ORDER BY post_id DESC ";
+                    $query = "SELECT * FROM posts WHERE post_status='published' ORDER BY post_id DESC LIMIT $page, $post_in_page ";
                     $select_all_post = mysqli_query($connection, $query);
 
                     while ($rows = mysqli_fetch_assoc($select_all_post)) {
@@ -60,14 +72,30 @@
 
 
                 <!-- Pager -->
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="#">&larr; Older</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">Newer &rarr;</a>
-                    </li>
-                </ul>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        
+                        <?php
+                            $current_page=$_GET['pages'];
+                            $pre = $current_page-1;
+                            $next = $current_page+1;
+                                echo "<li class='page-item'><a class='page-link' href='index.php?pages=$pre'>Previous</a></li>";
+                            
+                                    for ($i=1; $i <= $pages ; $i++) { 
+                                        if ($i == $current_page) {
+                                            echo "<li class='page-item active'><a class='page-link' href='index.php?pages=$i'>$i</a></li>";
+                                        }else {
+                                            echo "<li class='page-item'><a class='page-link' href='index.php?pages=$i'>$i</a></li>";
+                                            }
+                                    
+                                    } 
+                                echo "<li class='page-item'><a class='page-link' href='index.php?pages=$next'>Next</a></li>";
+
+                        ?>
+                        
+                       
+                    </ul>
+                </nav>
 
             </div>
 

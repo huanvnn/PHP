@@ -15,7 +15,7 @@
                
 
             <!-- END Can DELETE -->
-                <li> <a href="../index.php">HOME SITE</a> </li>
+                <li> <a href="../index.php?pages=1">HOME SITE</a> </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['username']; ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
